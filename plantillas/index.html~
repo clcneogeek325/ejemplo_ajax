@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Ejemplo Ajax</title>
+		<script type="text/javascript" language="javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+	</head>
+	<body>
+	<h1>Formulario</h1>
+	<form action="" method="get">
+	{% csrf_token %}
+	{{form.as_p}}
+		<p><input type="submit" value="Continue" /></p>
+	</form>
+
+	<script>
+$(document).ready(function(){
+   $("#id_tipo_alimento").change(function(evento){
+      var tipo=$("#id_tipo_alimento").attr("value");
+	$.ajax({
+		type:"POST",
+		contentType:"application/json",
+		dateType:"json",
+		url:"/ws/alimentos/"+tipo,
+		success:function(response){
+		for(var i=0;i<response.length;i++){
+			$("#id_alimento").append("<option>"+response[i].fields.nombre+"</option>")
+		}
+		}
+	});
+   });
+});
+</script>
+</head>
+
+<body>
+
+	</body>
+	
+</html>
+
+
